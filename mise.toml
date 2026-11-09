@@ -18,6 +18,7 @@ PICO_SDK_VERSION = "2.3.1"
 
 PICO_INSTALL_DIR = "{{config_root}}/.pico-sdk"
 CMAKE_GENERATOR = "Ninja"
+CMAKE_EXPORT_COMPILE_COMMANDS = "ON"
 
 # Written by `mise run bootstrap`. It's okay for it to be missing first run.
 _.source = "{{env.PICO_INSTALL_DIR}}/picorc"
@@ -32,4 +33,28 @@ run = [
     {{env.PICO_SDK_VERSION}} \
     --install-dir {{env.PICO_INSTALL_DIR}} \
     --no-cmake --no-ninja --no-rc-include""",
+]
+
+[tasks.configure]
+run = [
+  "cmake -S . -B build"
+]
+
+[tasks.build]
+run = [
+  "cmake --build build"
+]
+
+[tasks.clean]
+run = [
+  "rm -rf build"
+]
+
+[tasks.program]
+run = [
+  """
+  openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg \
+        -c 'adapter speed 5000' \
+        -c 'program build/test.elf verify reset exit'
+  """
 ]

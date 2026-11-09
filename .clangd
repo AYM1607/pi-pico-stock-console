@@ -1,0 +1,5 @@
+CompileFlags:
+    # Relative to this file, so build/compile_commands.json
+    CompilationDatabase: build
+    # sets the target to Arm, not host.
+    Compiler: arm-none-eabi-gcc

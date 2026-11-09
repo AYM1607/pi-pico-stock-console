@@ -1,3 +1,9 @@
+### Pico CMake build ###
+build/
+
+### Pico toolchain ###
+.pico-sdk/
+
 # Created by https://www.toptal.com/developers/gitignore/api/c,macos,linux,vim,cmake,ninja
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,macos,linux,vim,cmake,ninja
 
@@ -147,6 +153,3 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/c,macos,linux,vim,cmake,ninja
-
-### Pico toolchain ###
-.pico-sdk/

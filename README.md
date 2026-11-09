@@ -8,8 +8,9 @@ Needs [mise](https://mise.jdx.dev) and `git`.
 
 ```sh
 mise run bootstrap
-cmake -S . -B build -DPICO_BOARD=pico2_w
-cmake --build build
+mise run configure
+mise run build
+mise run program
 ```
 
 `bootstrap` installs cmake, ninja and python via mise, then the Pico SDK, Arm
