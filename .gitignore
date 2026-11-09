@@ -147,3 +147,6 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/c,macos,linux,vim,cmake,ninja
+
+### Pico toolchain ###
+.pico-sdk/

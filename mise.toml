@@ -1,0 +1,35 @@
+# Toolchain for a Raspberry Pi Pico projects.
+#
+# cmake, ninja (and sometimes python) come from mise.
+# Everything Pico-specific is installed into .pico-sdk/ by Raspberry Pi's
+# own installer, vendored verbatim under scripts/vendor/.
+# That installer writes .pico-sdk/picorc with the PATH entries and *_DIR env vars
+# the SDK's CMake wants, which `_.source` below hands to mise.
+
+[tools]
+cmake = "4.4.5"
+ninja = "1.13.2"
+python = "3.12.16"
+
+[env]
+# This is _just_ the sdk version. The Arm toolchain, picotool and OpenOCD
+# versions are derived from it so we can stick to permutations tested by the pico team.
+PICO_SDK_VERSION = "2.3.1"
+
+PICO_INSTALL_DIR = "{{config_root}}/.pico-sdk"
+CMAKE_GENERATOR = "Ninja"
+
+# Written by `mise run bootstrap`. It's okay for it to be missing first run.
+_.source = "{{env.PICO_INSTALL_DIR}}/picorc"
+
+[tasks.bootstrap]
+description = "Install the Pico SDK, Arm toolchain, picotool, pioasm and OpenOCD into .pico-sdk/"
+# TODO: on Linux, also install the USB libraries the prebuilt picotool and
+# OpenOCD link against (macOS ships its own dylibs): libusb-1.0-0 libftdi1-2 libhidapi-hidraw0
+run = [
+  "mise install",
+  """mise exec -- python3 {{config_root}}/scripts/vendor/install_pico_tools.py \
+    {{env.PICO_SDK_VERSION}} \
+    --install-dir {{env.PICO_INSTALL_DIR}} \
+    --no-cmake --no-ninja --no-rc-include""",
+]
