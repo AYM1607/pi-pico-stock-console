@@ -29,15 +29,17 @@ Baud rate is ignored on the usb virtual serial port. In pico-com use C-a, C-x to
 ## TODO
 
 - [x] Print through usb / debug port
-- [ ] Join WiFi network
-- [ ] Make HTTP request to get the current price of a stock
-- [ ] Print raw response to USB
-- [ ] Extremely simple JSON parser
+- [x] Join WiFi network
+- [x] Make HTTPS request to get the current price of a stock
+- [x] Print raw response to USB
+- [ ] Extremely simple parser to extract price
 - [ ] Print just price to USB
+- [ ] Minimal http client (lwip wrapper)
 - [ ] Display driver with raw framebuffer interface
 - [ ] Simple graphics API
   - [ ] BitMap font text
   - [ ] Lines
   - [ ] Rctangles (filled and non-filled)
   - [ ] Circles (filled and non-filled)
+- [ ] Expanded parser to handle intraday sample arrays
 - [ ] Show intraday stock graph for CRWV
