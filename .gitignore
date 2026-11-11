@@ -4,6 +4,9 @@ build/
 ### Pico toolchain ###
 .pico-sdk/
 
+### Env vars ###
+.env
+
 # Created by https://www.toptal.com/developers/gitignore/api/c,macos,linux,vim,cmake,ninja
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,macos,linux,vim,cmake,ninja
 

@@ -23,6 +23,9 @@ CMAKE_EXPORT_COMPILE_COMMANDS = "ON"
 # Written by `mise run bootstrap`. It's okay for it to be missing first run.
 _.source = "{{env.PICO_INSTALL_DIR}}/picorc"
 
+# Env files used by CMake that are injected as defines.
+_.file = ".env"
+
 [tasks.bootstrap]
 description = "Install the Pico SDK, Arm toolchain, picotool, pioasm and OpenOCD into .pico-sdk/"
 # TODO: on Linux, also install the USB libraries the prebuilt picotool and
