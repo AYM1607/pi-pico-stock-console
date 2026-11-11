@@ -10,8 +10,34 @@ Needs [mise](https://mise.jdx.dev) and `git`.
 mise run bootstrap
 mise run configure
 mise run build
-mise run program
+mise run flash
 ```
 
 `bootstrap` installs cmake, ninja and python via mise, then the Pico SDK, Arm
 toolchain, Risc-V toolchain, pioasm, picotool and OpenOCD into `.pico-sdk/`.
+
+## Monitor
+
+Use screen to read from serial, either through usb virtual or actual uart:
+
+```sh
+picocom -b 115200 /dev/tty.usbmodem* 
+```
+
+Baud rate is ignored on the usb virtual serial port. In pico-com use C-a, C-x to exit cleanly.
+
+## TODO
+
+- [x] Print through usb / debug port
+- [ ] Join WiFi network
+- [ ] Make HTTP request to get the current price of a stock
+- [ ] Print raw response to USB
+- [ ] Extremely simple JSON parser
+- [ ] Print just price to USB
+- [ ] Display driver with raw framebuffer interface
+- [ ] Simple graphics API
+  - [ ] BitMap font text
+  - [ ] Lines
+  - [ ] Rctangles (filled and non-filled)
+  - [ ] Circles (filled and non-filled)
+- [ ] Show intraday stock graph for CRWV

@@ -50,11 +50,11 @@ run = [
   "rm -rf build"
 ]
 
-[tasks.program]
+[tasks.flash]
 run = [
   """
   openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg \
         -c 'adapter speed 5000' \
-        -c 'program build/test.elf verify reset exit'
+        -c 'program build/stock_console.elf verify reset exit'
   """
 ]

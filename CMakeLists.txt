@@ -6,18 +6,18 @@ cmake_minimum_required(VERSION 3.13)
 set(PICO_BOARD pimoroni_pico_plus2_w_rp2350 CACHE STRING "board type")
 include(pico_sdk_import.cmake)
 
-project(test_project C CXX ASM)
+project(stock_console C CXX ASM)
 
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
-add_executable(test
-    test.c
+add_executable(stock_console
+    main.c
 )
 
-target_link_libraries(test
+target_link_libraries(stock_console
     pico_stdlib
     pico_cyw43_arch_none
     # Other options (when using wifi):
@@ -29,7 +29,7 @@ target_link_libraries(test
     # - pico_btstack_ble
 )
 
-pico_enable_stdio_usb(test 1)
-pico_enable_stdio_uart(test 1)
+pico_enable_stdio_usb(stock_console 1)
+pico_enable_stdio_uart(stock_console 0)
 
-pico_add_extra_outputs(test)
+pico_add_extra_outputs(stock_console)
