@@ -1,4 +1,6 @@
 #include <lwip/apps/http_client.h>
+#include <lwip/arch.h>
+#include <lwip/pbuf.h>
 #include <pico/time.h>
 #include <stdio.h>
 #include "pico/stdlib.h"
@@ -11,14 +13,49 @@
 
 volatile bool req_done = false;
 
-err_t req_recv_fn(void *arg, struct altcp_pcb *conn, struct pbuf *p, err_t err) {
-    int rc = ERR_OK;
-    u16_t offset = 0;
-    while (offset < p->tot_len) {
-        char c = (char)pbuf_get_at(p, offset++);
-        putchar(c);
+float parse_stock_price(struct pbuf *p) {
+    /*
+     Response shape:
+        {
+            "Global Quote": {
+                "01. symbol": "CRWV",
+                "02. open": "48.1000",
+                "03. high": "51.0200",
+                "04. low": "47.0575",
+                "05. price": "48.7300",
+                "06. volume": "90252210",
+                "07. latest trading day": "2026-11-10",
+                "08. previous close": "48.9800",
+                "09. change": "-0.2500",
+                "10. change percent": "-0.5104%"
+            }
+        }
+    */
+
+    char fbuf[32];
+    u16_t idx = pbuf_strstr(p, "\"05. price\":");
+    if (idx == 0xFFFF) {
+        // Not found.
+        return 0;
     }
-    putchar('\n');
+    // Move to the start of the price float.
+    idx += 14;
+    u16_t offset = 0;
+    char c;
+    while ((c = (char)pbuf_get_at(p, idx)) != '"' && offset < 32) {
+        fbuf[offset] = c;
+        idx++;
+        offset++;
+    }
+
+    char *end;
+    // TODO: Better error handling?
+    return strtof(fbuf, &end);
+}
+
+err_t req_recv_fn(void *arg, struct altcp_pcb *conn, struct pbuf *p, err_t err) {
+    float price = parse_stock_price(p);
+    printf("CRWV price: $%.2f\n", price);
     altcp_recved(conn, p->tot_len);
     pbuf_free(p);
     return 0;

@@ -32,8 +32,8 @@ Baud rate is ignored on the usb virtual serial port. In pico-com use C-a, C-x to
 - [x] Join WiFi network
 - [x] Make HTTPS request to get the current price of a stock
 - [x] Print raw response to USB
-- [ ] Extremely simple parser to extract price
-- [ ] Print just price to USB
+- [x] Extremely simple parser to extract price
+- [x] Print just price to USB
 - [ ] Minimal http client (lwip wrapper)
 - [ ] Display driver with raw framebuffer interface
 - [ ] Simple graphics API
