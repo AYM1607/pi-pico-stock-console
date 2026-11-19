@@ -26,12 +26,17 @@ _.source = "{{env.PICO_INSTALL_DIR}}/picorc"
 # Env files used by CMake that are injected as defines.
 _.file = ".env"
 
+# Shared libraries the prebuilt picotool and OpenOCD link against on Linux
+# (macOS ships its own dylibs).
+[bootstrap.packages]
+"apt:libusb-1.0-0" = "latest"
+"apt:libftdi1-2" = "latest"
+"apt:libhidapi-hidraw0" = "latest"
+
+# Run by `mise bootstrap` after the packages and [tools] above are installed.
 [tasks.bootstrap]
 description = "Install the Pico SDK, Arm toolchain, picotool, pioasm and OpenOCD into .pico-sdk/"
-# TODO: on Linux, also install the USB libraries the prebuilt picotool and
-# OpenOCD link against (macOS ships its own dylibs): libusb-1.0-0 libftdi1-2 libhidapi-hidraw0
 run = [
-  "mise install",
   """mise exec -- python3 {{config_root}}/scripts/vendor/install_pico_tools.py \
     {{env.PICO_SDK_VERSION}} \
     --install-dir {{env.PICO_INSTALL_DIR}} \

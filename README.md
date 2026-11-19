@@ -7,14 +7,16 @@ A stock ticker mini console built with the pi pico 2 w
 Needs [mise](https://mise.jdx.dev) and `git`.
 
 ```sh
-mise run bootstrap
+mise bootstrap
 mise run configure
 mise run build
 mise run flash
 ```
 
-`bootstrap` installs cmake, ninja and python via mise, then the Pico SDK, Arm
-toolchain, Risc-V toolchain, pioasm, picotool and OpenOCD into `.pico-sdk/`.
+`mise bootstrap` installs the USB libraries picotool and OpenOCD need on
+Debian/Ubuntu (via apt, may prompt for sudo), then cmake, ninja and python via
+mise, then the Pico SDK, Arm toolchain, Risc-V toolchain, pioasm, picotool and
+OpenOCD into `.pico-sdk/`.
 
 ## Monitor
 
